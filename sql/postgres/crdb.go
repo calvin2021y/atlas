@@ -318,6 +318,7 @@ SELECT
 	t1.is_identity,
 	t5.start_value as identity_start,
 	t5.increment_by as identity_increment,
+	(CASE WHEN t1.is_identity = 'YES' THEN currval(pg_get_serial_sequence(table_schema || '.' || t1.table_name, t1.column_name)) END) AS identity_current,
 	t1.identity_generation,
 	t1.generation_expression,
 	col_description(t3.oid, "ordinal_position") AS comment,
